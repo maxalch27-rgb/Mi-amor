@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Amor</title>
+    <style>
+        body { background-color: #ff4d94; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: sans-serif; overflow: hidden; }
+        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 80%; max-width: 400px; text-align: left; position: relative; }
+        h2 { color: #d63384; font-size: 1.2rem; }
+        #timer { font-weight: bold; margin-top: 10px; display: block; }
+        canvas { position: absolute; right: 10px; bottom: 60px; z-index: 1; }
+        .text { position: relative; z-index: 2; width: 60%; font-size: 1rem; color: #444; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="text">
+            <h2>Para el amor de mi vida:</h2>
+            <p id="typewriter">Si pudiera elegir un lugar seguro, sería a tu lado. ❤️</p>
+        </div>
+        <canvas id="tree" width="150" height="200"></canvas>
+        <hr>
+        <p>Llevamos juntos:</p>
+        <span id="timer">Cargando...</span>
+    </div>
+
+    <script>
+        // CONFIGURA TU FECHA AQUÍ: (Año, Mes-1, Día)
+        const fecha = new Date(2023, 2, 02); 
+
+        function update() {
+            const now = new Date();
+            const diff = now - fecha;
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff / 3600000) % 24);
+            const m = Math.floor((diff / 60000) % 60);
+            const s = Math.floor((diff / 1000) % 60);
+            document.getElementById('timer').innerText = ${d}d ${h}h ${m}m ${s}s;
+        }
+
+        const canvas = document.getElementById('tree');
+        const ctx = canvas.getContext('2d');
+        function drawHeart(x, y) {
+            ctx.fillStyle = "red";
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        // Tronco simple
+        ctx.fillStyle = "#5d4037";
+        ctx.fillRect(70, 150, 10, 50);
+        // Corazones
+        setInterval(() => {
+            drawHeart(Math.random() * 150, Math.random() * 150);
+        }, 300);
+
+        setInterval(update, 1000);
+    </script>
+</body>
+</html>
